@@ -4,6 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
+import sample.cafekiosk.unit.order.Order;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -85,4 +88,41 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages()).isEmpty();
     }
 
+    @Test
+    void createOrder() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        cafeKiosk.add(americano);
+
+        Order order = cafeKiosk.createOrder();
+
+        assertThat(order.getBeverages()).hasSize(1);
+        assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void createOrderWithCurrentTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        cafeKiosk.add(americano);
+
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(2023,6,20,10,0));
+
+        assertThat(order.getBeverages()).hasSize(1);
+        assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void createOrderOutsideOpenTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        cafeKiosk.add(americano);
+
+        //테스트하기 어려운 영역
+        //관측할 때마다 다른 값에 의존하는 코드 -> 현재 날짜/시간, 랜덤 값, 전역 변수/함수, 사용자 입력 등
+        //외부 세계에 영향을 주는 코드 -> 표준 출력, 메시지 발송, 데이터베이스에 기록하기 등
+
+        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2023,6,20,9,59)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
