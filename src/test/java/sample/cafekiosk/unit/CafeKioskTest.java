@@ -95,6 +95,7 @@ class CafeKioskTest {
     }
 
     @Test //TDD 사이클로 개발
+    @DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
     void calculateTotalPrice() {
         //RED -> GREEN -> REFACTOR
         //선 기능 구현, 후 테스트 작성
@@ -112,6 +113,13 @@ class CafeKioskTest {
         //TDD를 하지 않으면 테스트를 검증을 위한 보조수단으로만 생각하게 된다.
         //클라이언트 관점에서의 피드백을 주는 Test Driven
 
+        //BDD (Behavior Driven Development)
+        //TDD에서 파생된 개발 방법
+        //함수 단위의 테스트에 집중하기보다, 시나리오에 기반한 테스트케이스(TC) 자체에 집중하여 테스트한다.
+        //개발자가 아닌 사람이 봐도 이해할 수 있을 정도의 추상화 수준을 권장
+
+
+        // given (시나리오 진행에 필요한 모든 준비 과정) , 어떤환경에서
         CafeKiosk cafeKiosk = new CafeKiosk();
         Latte latte = new Latte();
         Americano americano = new Americano();
@@ -119,8 +127,13 @@ class CafeKioskTest {
         cafeKiosk.add(latte);
         cafeKiosk.add(americano);
 
+        // when(시나리오 행동 진행), 어떤 행동을 진행했을 때
         int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // then(시나리오 진행에 대한 결과 명시, 검증) 어떤 상태 변화가 일어난다.
         assertThat(totalPrice).isEqualTo(8500);
+
+        //given, when, then 작성 시 -> DisplayName에 명확하게 작성할 수 있다.
     }
 
     @Test
