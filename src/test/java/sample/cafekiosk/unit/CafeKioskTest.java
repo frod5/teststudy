@@ -88,6 +88,35 @@ class CafeKioskTest {
         assertThat(cafeKiosk.getBeverages()).isEmpty();
     }
 
+    @Test //TDD 사이클로 개발
+    void calculateTotalPrice() {
+        //RED -> GREEN -> REFACTOR
+        //선 기능 구현, 후 테스트 작성
+        //테스트 자체의 누락 가능성
+        //특정 테스트 케이스(해피 케이스)만 검증할 가능성
+        //잘못된 구현을 다소 늦게 발견할 가능성
+
+        //선 테스트 작성, 후 기능 구현
+        //복잡도가 낮은, 테스트 가능한 코드로 구현할 수 있게 한다.
+        //쉽게 발견하기 어려운 엣지 케이스를 놓치지 않게 해준다.
+        //구현에 대한 빠른 피드백을 받을 수 있다.
+        //과감한 리팩토링이 가능해진다.
+
+        //TDD를 사용하면 테스트와 상호 작용하며 발전하지만
+        //TDD를 하지 않으면 테스트를 검증을 위한 보조수단으로만 생각하게 된다.
+        //클라이언트 관점에서의 피드백을 주는 Test Driven
+
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Latte latte = new Latte();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(latte);
+        cafeKiosk.add(americano);
+
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+        assertThat(totalPrice).isEqualTo(8500);
+    }
+
     @Test
     void createOrder() {
         CafeKiosk cafeKiosk = new CafeKiosk();
