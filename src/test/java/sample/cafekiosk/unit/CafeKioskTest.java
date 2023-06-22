@@ -1,6 +1,6 @@
 package sample.cafekiosk.unit;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CafeKioskTest {
 
@@ -25,6 +24,13 @@ class CafeKioskTest {
         System.out.println(">>> 담긴 음료 : "+ cafeKiosk.getBeverages().get(0).getName());
     }
 
+    //DisplayName을 섬세하게
+    //명사의 나열보다 문장으로 기술
+    //테스트 행위에 대한 결과까지 기술
+    //도메인 용어를 사용하여 한층 추상화된 내용을 담기
+    //테스트의 현상을 중점으로 기술하지 말 것
+//    @DisplayName("음료 1개를 추가 테스트")
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
     @Test
     void add() {
         CafeKiosk cafeKiosk = new CafeKiosk();
