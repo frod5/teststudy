@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import sample.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
+import sample.cafekiosk.spring.api.service.product.request.ProductCreateServiceRequest;
 import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductRepository;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
@@ -30,7 +30,7 @@ public class ProductService {
 
     @Transactional
     //동시성 이슈
-    public ProductResponse createProduct(ProductCreateRequest request) {
+    public ProductResponse createProduct(ProductCreateServiceRequest request) {
         String nextProductNumber = createNextProduct();
         Product product = request.toEntity(nextProductNumber);
 
