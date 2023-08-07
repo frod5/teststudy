@@ -53,6 +53,9 @@ class OrderServiceTest {
         orderRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
         stockRepository.deleteAllInBatch();
+
+        // .deleteAll()을 사용하면 findAll 전체 조회 한 후 한 건씩 delete를 한다. 대신 orderRepository.deleteAll()을 하면 연관되어 있는 orderProduct까지 건건히 삭제해준다.
+        // .deleteAllInBatch()는 조회없이 바로 delete from table로 삭제한다.
     }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
@@ -168,8 +171,10 @@ class OrderServiceTest {
         Product product3 = createProduct(HANDMADE, "003",5000);
         productRepository.saveAll(List.of(product1,product2,product3));
 
-        Stock stock1 = Stock.create("001",1);
-        Stock stock2 = Stock.create("002",1);
+        Stock stock1 = Stock.create("001",2);
+        Stock stock2 = Stock.create("002",2);
+
+        stock1.deductQuantity(1);
         stockRepository.saveAll(List.of(stock1, stock2));
 
         OrderCreateRequest request = OrderCreateRequest.builder()

@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StockTest {
 
+
+
     @DisplayName("재고의 수량이 제공된 수량보다 적은지 확인한다.")
     @Test
     void isQuantityLessThan() {
